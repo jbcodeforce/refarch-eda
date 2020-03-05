@@ -1085,12 +1085,13 @@
 <p><div class="codehilite"><pre><span></span>./connect-mirror-maker.sh /home/strimzi.properties 
 </pre></div>
 When Mirror maker starts it will create some topics on source cluster to manage the offsets and topic metadata:</p>
-<p><div class="codehilite"><pre><span></span>mm2-configs.target.internal                                   1            3
+<div class="codehilite"><pre><span></span>mm2-configs.target.internal                                   1            3
 mm2-offset-syncs.target.internal                              1            3
 mm2-offsets.target.internal                                   25           3
 mm2-status.target.internal                                    5            3
 </pre></div>
-And on the target cluster:</p>
+
+<p>And on the target cluster:</p>
 <div class="codehilite"><pre><span></span>__consumer_offsets
 heartbeats
 mm2-configs.source.internal
@@ -1102,7 +1103,9 @@ source.test
 </pre></div>
 
 <p>The <code>source.test</code> topic is the replicated <code>test</code> topic from the source cluster.</p>
+<p><img alt="" src="../images/mm-k-connect.png" /></p>
 <h2 id="active-passive">Active - Passive</h2>
+<p>To support active - passive, one site has producers and consumers on local topics, and topic data are replicated on active cluster without online consumers</p>
 <h2 id="active-active">Active - Active</h2>
 <ul>
 <li>producers, deployed on IBM cloud within Openshift, send messages to Event streams on cloud, on the 'reeferTelemetries` topic. The explanation of the telemetry simulator producer deployment is done <a href="https://ibm-cloud-architecture.github.io/refarch-reefer-ml/infuse/simul-app/#prepare-for-kubernetes-deployment">here.</a></li>
