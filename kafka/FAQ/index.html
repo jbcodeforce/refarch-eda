@@ -735,6 +735,20 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#what-are-the-impacts-of-having-not-enough-resource-for-kafka" title="What are the impacts of having not enough resource for kafka?" class="md-nav__link">
+    What are the impacts of having not enough resource for kafka?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-does-out-of-synch-partition-mean-and-occur" title="What does out-of-synch partition mean and occur?" class="md-nav__link">
+    What does out-of-synch partition mean and occur?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#differences-between-akka-and-kafka" title="Differences between Akka and Kafka?" class="md-nav__link">
     Differences between Akka and Kafka?
   </a>
@@ -981,18 +995,6 @@
 
 
   <li class="md-nav__item">
-    <a href="../../training/eda-skill-journey/" title="Skill journey" class="md-nav__link">
-      Skill journey
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
     <a href="../../compendium/" title="Compendium" class="md-nav__link">
       Compendium
     </a>
@@ -1050,6 +1052,20 @@
         <li class="md-nav__item">
   <a href="#what-are-the-topic-characteristics-i-need-to-define-during-requirements" title="What are the topic characteristics I need to define during requirements?" class="md-nav__link">
     What are the topic characteristics I need to define during requirements?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-are-the-impacts-of-having-not-enough-resource-for-kafka" title="What are the impacts of having not enough resource for kafka?" class="md-nav__link">
+    What are the impacts of having not enough resource for kafka?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-does-out-of-synch-partition-mean-and-occur" title="What does out-of-synch partition mean and occur?" class="md-nav__link">
+    What does out-of-synch partition mean and occur?
   </a>
   
 </li>
@@ -1123,6 +1139,11 @@
 <li>Need to do ge replication to other kafka cluster</li>
 <li>Network filesystem used on the target kubernetes cluster and current storage class</li>
 </ul>
+<h2 id="what-are-the-impacts-of-having-not-enough-resource-for-kafka">What are the impacts of having not enough resource for kafka?</h2>
+<p>The table in this <a href="https://ibm.github.io/event-streams/installing/prerequisites/#helm-resource-requirements">Event Streams product documentation</a> illustrates the resource requirements for a getting started cluster. When resources start to be at stress, then Kafka communication to ZooKeeper and/or other Kafka brokers can suffer resulting in out-of-sync partitions and container restarts perpetuating the issue. Resource constraints is one of the first things we consider when diagnosing ES issues.</p>
+<h2 id="what-does-out-of-synch-partition-mean-and-occur">What does out-of-synch partition mean and occur?</h2>
+<p>With partition leader and replication to the followers, the number of in-synch replicas is at least the number of expected replicas. For example for a replicas = 3 the in-synch is set to 2, and it represents the minimum number of replicas that must acknowledge a write for the write to be considered successful. The record is considered “committed” when all ISRs for partition wrote to their log. Only committed records are readable from consumer.</p>
+<p>So out-of-synch will happen if the followers are not able to send their acknowledge to the replica leader.</p>
 <h2 id="differences-between-akka-and-kafka">Differences between Akka and Kafka?</h2>
 <p><a href="https://akka.io/">Akka</a> is a open source toolkit for Scala or Java to simplify multithreading programming and makes application more reactive by adopting an asynchronous mechanism to access to io: database or HTTP request. To support asynchronous communication between 'actors', it uses messaging, internal to the JVM. 
 Kafka is part of the architecture, while Akka is an implementation choice for one of the component of the business application deployed inside the architecture. </p>

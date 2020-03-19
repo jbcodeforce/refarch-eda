@@ -953,18 +953,6 @@
 
 
   <li class="md-nav__item">
-    <a href="../../training/eda-skill-journey/" title="Skill journey" class="md-nav__link">
-      Skill journey
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
     <a href="../../compendium/" title="Compendium" class="md-nav__link">
       Compendium
     </a>
@@ -1066,7 +1054,7 @@ The distributed transaction ends when the last service executes its local transa
 <p>If anything fails, the orchestrator is also responsible for coordinating the compensation process by sending rollback events with orderID and their respective impacted entity key (voyageID, reeferID, transactionID). Each  participant will undo its previous operations.
 Orchestrator is a State Machine where each transformation corresponds to a command or message.</p>
 <p>See also <a href="https://microservices.io/patterns/data/saga.html">this article</a> from Chris Richardson on the Saga pattern.</p>
-<p>We have implemented the choreography saga pattern in the order management, voyage and refeer management microservices within the <a href="https://ibm-cloud-architecture.github.io/refarch-kc/deployments/reposlist/">EDA reference implementation solution</a> with a detailed explanation of the integration tests to validate the <a href="https://ibm-cloud-architecture.github.io/refarch-kc/itg-tests/happy-path/happy_path/">happy path</a> and the <a href="https://ibm-cloud-architecture.github.io/refarch-kc/itg-tests/saga/saga/">exception path</a> with compensation.</p>
+<p>We have implemented the choreography saga pattern in the order management, voyage and refeer management microservices within the <a href="https://ibm-cloud-architecture.github.io/refarch-kc/deployments/reposlist/">EDA reference implementation solution</a> with a detailed explanation of the integration tests to validate the <a href="https://ibm-cloud-architecture.github.io/refarch-kc/itg-tests/happy-path/happy_path/">happy path</a>, and the <a href="https://ibm-cloud-architecture.github.io/refarch-kc/itg-tests/saga/saga/">exception path</a> with compensation.</p>
                 
                   
                 

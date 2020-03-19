@@ -966,18 +966,6 @@
 
 
   <li class="md-nav__item">
-    <a href="../training/eda-skill-journey/" title="Skill journey" class="md-nav__link">
-      Skill journey
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
     <a href="../compendium/" title="Compendium" class="md-nav__link">
       Compendium
     </a>
@@ -1073,7 +1061,7 @@
 <li>Providing communication mechanism between event driven microservices and functions.</li>
 </ul>
 <p>With an event backbone providing the connectivity between the capabilities, we can visualize a reference Event Driven Architecture as below:</p>
-<p><img alt="hl-arch-ra" src="../hl-arch-ra.png" /></p>
+<p><img alt="hl-arch-ra" src="../images/hl-arch-ra.png" /></p>
 <p>Where:</p>
 <ol>
 <li><a href="../evt-src/">Event sources</a>: generates events and event streams from sources such as IoT devices, web app, mobile app, microservices… </li>
@@ -1090,7 +1078,7 @@
 <li>Integration with analytics or machine learning to derive real-time insights</li>
 </ul>
 <p>The diagram below shows how these capabilities fit together to form an extended event-driven architecture.</p>
-<p><img alt="hl-arch-ra-adv" src="../hl-arch-ra-adv.png" /></p>
+<p><img alt="hl-arch-ra-adv" src="../images/hl-arch-ra-adv.png" /></p>
 <p>In 7. the AI workbench includes tools to do data analysis and visualization, build training and test sets from any datasource and in particular Event Store, and develop models. Models are pushed to streaming analytics component.</p>
 <h2 id="integration-with-analytics-and-machine-learning">Integration with analytics and machine learning</h2>
 <p>The extended architecture extends the basic EDA reference architecture with concepts showing how data science, artificial intelligence and machine learning can be incorporated into an event-driven solution.</p>
@@ -1100,7 +1088,7 @@
 <p>Following our event-driven reference architecture the event stream would be a Kafka topic on the event backbone.  From here there are two possibilities for making that event data available and consumable to the data scientist:</p>
 <ul>
 <li>The event stream or event log can be accessed directly through Kafka and pulled into the analysis process</li>
-<li>The event stream can be pre-processed by the streaming analytics system and stored for future use in the analysis process. You have a choice of store type to use. Within public IBM cloud object storage <a href="https://www.ibm.com/cloud/object-storage">Cloud Object Store </a> can be used as a cost-effective historical store.</li>
+<li>The event stream can be pre-processed by the streaming analytics system and stored for future use in the analysis process. You have a choice of store type to use. Within public IBM cloud object storage <a href="https://www.ibm.com/cloud/object-storage">Cloud Object Store</a> can be used as a cost-effective historical store.</li>
 </ul>
 <p>Both approaches are valid, pre-processing through streaming analytics provides opportunity for greater manipulation of the data, or storing data over time windows for complex event processing. However, the more interesting distinction is where you use a predictive (ML model) to score arriving events or stream data in real time. In this case you may use streaming analytics to extract and save the event data for analysis, model building, and model training and also for scoring (executing) a derived model in line in the real time against arriving event data.</p>
 <ul>
@@ -1121,7 +1109,7 @@
 <p>These are scalable easily extensible, and adaptable applications responding in near real time to new situations. There are easily extended to build out and evolve from an initial minimal viable product (MVP) because of the loose coupling in the event-driven architecture, , and streams process domains.</p>
 <h3 id="data-scientist-workbench">Data scientist workbench</h3>
 <p>To complete the extended architecture for integration with analytics and machine learning, consider the toolset and frameworks that the data scientist can use to derive the models.  <a href="https://www.ibm.com/marketplace/watson-studio">Watson Studio</a>  provides tools for data scientists, application developers, and subject matter experts to collaboratively and easily work with data to build and train models at scale.  </p>
-<p>For more information see <a href="https://dataplatform.cloud.ibm.com/docs/content/getting-started/overview-ws.html">Getting started </a> with Watson Studio.</p>
+<p>For more information see <a href="https://dataplatform.cloud.ibm.com/docs/content/getting-started/overview-ws.html">Getting started</a> with Watson Studio.</p>
 <h2 id="legacy-integration">Legacy integration</h2>
 <p>While you create new digital business applications as self-contained systems, you likely need to integrate legacy apps and databases into the event-driven system. Two ways of coming directly into the event-driven architecture are as follows: </p>
 <ol>
