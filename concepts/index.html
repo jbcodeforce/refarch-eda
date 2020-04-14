@@ -744,6 +744,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../mirrormaker.md" title="Mirror Maker 2.0" class="md-nav__link">
+      Mirror Maker 2.0
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../kafka/FAQ/" title="Kafka FAQ" class="md-nav__link">
       Kafka FAQ
     </a>
@@ -1081,7 +1093,7 @@
 <li><strong>Messaging:</strong> Messages transport a payload and messages are persisted until consumed. Message consumers are typically directly targeted and related to the producer who cares that the message has been delivered and processed.</li>
 <li><strong>Events:</strong> Events are persisted as a replayable stream history. Event consumers are not tied to the producer. An event is a record of something that has happened and so can't be changed. (You can't change history.)</li>
 </ul>
-<p><img src="../hl-arch-concepts1.png" width="1024px"></p>
+<p><img src="../images/hl-arch-concepts1.png" width="1024px"></p>
 <h2 id="loose-coupling">Loose coupling</h2>
 <p>Loose coupling is one of the main benefits of event-driven processing. It allows event producers to emit events without any knowledge about who is going to consume those events. Likewise, event consumers don't need to be aware of the event emitters. Because of this, event consuming modules and event producer modules can be implemented in different languages or use technologies that are different and appropriate for specific jobs. Loosely coupled modules are better suited to evolve independently and, when implemented correctly, result in a significant decrease in system complexity.</p>
 <p>Loose coupling, however, does not mean “no coupling”. An event consumer consumes events that are useful in achieving its goals and in doing so establishes what data it needs and the type and format of that data. The event producer emits events that it hopes are understood and useful to consumers thus establishing an implicit contract with potential consumers. For example, an event notification in XML format must conform to a certain schema that must be known by both the consumer and the producer.  One of the most important things that you can do to reduce coupling in an event-driven system is to reduce the number of distinct event types that flow between modules. To do this you must pay attention to the cohesiveness of those modules.</p>

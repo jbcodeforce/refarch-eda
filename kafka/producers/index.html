@@ -753,6 +753,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../mirrormaker.md" title="Mirror Maker 2.0" class="md-nav__link">
+      Mirror Maker 2.0
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../FAQ/" title="Kafka FAQ" class="md-nav__link">
       Kafka FAQ
     </a>
@@ -1140,16 +1152,16 @@
 </table>
 <h2 id="how-to-support-exactly-once-delivery">How to support exactly once delivery</h2>
 <p>Knowing that exactly once delivery is one of the hardest problems to solve in distributed systems, how kafka does it?. Broker can fail or a network may respond slowly while a producer is trying to send events.</p>
-<p>Producer can set acknowledge level to control the delivery semantic:</p>
+<p>Producer can set acknowledge level to control the delivery semantic to ensure not loosing data. The following semantic is supported:</p>
 <ul>
 <li><strong>At least once</strong>: means the producer set ACKS_CONFIG=1 and get an acknowledgement message when the message sent, has been written to at least one time in the cluster (assume replicas = 3).  If the ack is not received, the producer may retry, which may generate duplicate records in case the broker stops after saving to the topic and before sending back the acknowledgement message.</li>
-<li><strong>At most semantic</strong>: means the producer will not do retry in case of no acknowldege received. It may create log and compensation, but the message is lost.</li>
+<li><strong>At most semantic</strong>: means the producer will not do retry in case of no acknowldege received. It may create log and compensation, but the message may be lost.</li>
 <li><strong>Exactly once</strong> means even if the producer sends the message twice the system will send only one message to the consumer. Once the consumer commits the read offset, it will not receive the message again, even if it restarts. Consumer offset needs to be in sync with produced event.</li>
 </ul>
-<p>With the idempotence property (ENABLE_IDEMPOTENCE_CONFIG = true), the record sent, has a sequence number and a producer id, so that the broker keeps the last sequence number per producer and per partition. </p>
+<p>To avoid duplicate message at the broker level, when acknowledge is set to ALL, the producer can also set idempotence flag: ENABLE_IDEMPOTENCE_CONFIG = true. With the idempotence property, the record sent, has a sequence number and a producer id, so that the broker keeps the last sequence number per producer and per partition. If a message is received with a lower sequence number, it means a producer is doing some retries on record already processed, so the broker will drop it, to avoid having duplicate records per partition.</p>
 <p><img alt="Exactly once" src="../images/exactly-one-1.png" /></p>
-<p>If a message is received with a lower sequence number, it means a producer is doing some retries on record already processed, so the broker will drop it, to avoid having duplicate records per partition. The broker will drop the messages with a sequence less or equals to the last committed sequence number, and accept the other ones. In the diagram below, the 3nd message in the batch did not get an acknowledge, so the producer resends the batch, and the brokers reject duplicates and accept the 3nd message.</p>
-<p><img alt="Excatly once - retries" src="../images/exactly-one-2.png" /></p>
+<p>In the diagram below, the 3nd message in the batch did not get an acknowledge, so the producer resends the batch, and the brokers reject duplicates and accept the 3nd message.</p>
+<p><img alt="Exactly once - retries" src="../images/exactly-one-2.png" /></p>
 <p>The sequence number is persisted in a log so even in case of broker leader failure, the new leader will have a good view of the states of the system.</p>
 <div class="admonition note">
 <p class="admonition-title">Note<p>The replication mechanism guarantees that when a message is written to the leader replica, it will be replicated to all available replicas.

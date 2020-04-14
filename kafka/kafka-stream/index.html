@@ -676,8 +676,28 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#example-to-run-the-word-count-application" title="Example to run the Word Count application:" class="md-nav__link">
-    Example to run the Word Count application:
+  <a href="#simple-example" title="Simple example" class="md-nav__link">
+    Simple example
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-to-run-the-word-count-application" title="Example to run the Word Count application" class="md-nav__link">
+    Example to run the Word Count application
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#some-other-examples" title="Some other examples" class="md-nav__link">
+    Some other examples
   </a>
   
 </li>
@@ -686,6 +706,19 @@
   <a href="#some-design-considerations" title="Some design considerations" class="md-nav__link">
     Some design considerations
   </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#join-streams-examples" title="Join streams Examples" class="md-nav__link">
+    Join streams Examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -729,6 +762,18 @@
   <li class="md-nav__item">
     <a href="../connect/" title="Kafka Connect" class="md-nav__link">
       Kafka Connect
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../mirrormaker.md" title="Mirror Maker 2.0" class="md-nav__link">
+      Mirror Maker 2.0
     </a>
   </li>
 
@@ -987,8 +1032,28 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#example-to-run-the-word-count-application" title="Example to run the Word Count application:" class="md-nav__link">
-    Example to run the Word Count application:
+  <a href="#simple-example" title="Simple example" class="md-nav__link">
+    Simple example
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-to-run-the-word-count-application" title="Example to run the Word Count application" class="md-nav__link">
+    Example to run the Word Count application
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#some-other-examples" title="Some other examples" class="md-nav__link">
+    Some other examples
   </a>
   
 </li>
@@ -997,6 +1062,19 @@
   <a href="#some-design-considerations" title="Some design considerations" class="md-nav__link">
     Some design considerations
   </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#join-streams-examples" title="Join streams Examples" class="md-nav__link">
+    Join streams Examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1047,7 +1125,7 @@
 <li>Stream processing is helpful for handling out-of-order data, <em>reprocessing</em> input as code changes, and performing stateful computations. It uses producer / consumer APIs, stateful storage and consumer groups. It treats both past and future data the same way.</li>
 <li>This is an embedded library to integrate in your application.</li>
 <li>Integrate tables for state persistence combined streams of events.</li>
-<li>Consumes continuous real time flows of records and publish new flows.</li>
+<li>Consumes continuous real time flows of records and publishes new flows.</li>
 <li>Can scale vertically, by increasing the number of threads for each Kafka Streams application on a single machine, or horizontally by adding an additional machine with the same <code>application.id</code>.</li>
 <li>Supports exactly-once processing semantics to guarantee that each record will be processed once and only once even when there is a failure.</li>
 <li>Stream APIs transform, aggregate and enrich data, per record with milli second latency, from one topic to another one.</li>
@@ -1060,15 +1138,17 @@
 <li>An application's processor topology is scaled by breaking it into multiple tasks.</li>
 <li>Tasks can then instantiate their own processor topology based on the assigned partitions.</li>
 </ul>
-<p>In general code for processing event does the following:</p>
+<p>In general the code for processing event does the following:</p>
 <ul>
 <li>Set a properties object to specify which brokers to connect to and what kind of serialization to use.</li>
-<li>Define a stream client: if you want stream of record use KStream, if you want a changelog with the last value of a given key use KTable (Example of using KTable is to keep a user profile with userid as key). In the reeefer container shipment implementation we use <a href="https://ibm-cloud-architecture.github.io/refarch-kc-container-ms/kstreams/">KTable to keep the Reefer container inventory</a> in memory. </li>
+<li>Define a stream client: if you want to get the stream of records use <strong>KStream</strong>, if you want a changelog with the last value of a given, key use <strong>KTable</strong> (Example of using KTable is to keep a user profile with userid as key).  </li>
 <li>Create a topology of input source and sink target and the set of actions to perform in between.</li>
 <li>Start the stream client to consume records.</li>
 </ul>
-<p>Programming with KStream and Ktable is not easy at first, as there are a lot of concepts for data manipulations, serialization and operations chaining. It uses function programming and chaining.</p>
-<p>A stateful operator uses the streaming Domain Specific Language, with constructs for aggregation, join and time window operations. Stateful transformations require a state store associated with the stream processor. The code below comes from Kafka examples and is counting word occurrence in text:</p>
+<p>Programming with KStream and Ktable is not easy at first, as there are a lot of concepts for data manipulations, serialization and operations chaining. </p>
+<p>A stateful operator uses the streaming Domain Specific Language, with constructs for aggregation, join and time window operations. Stateful transformations require a state store associated with the stream processor. </p>
+<h2 id="simple-example">Simple example</h2>
+<p>The code below comes from Kafka examples and is counting word occurrence in text:</p>
 <div class="codehilite"><pre><span></span>    <span class="kd">final</span> <span class="n">StreamsBuilder</span> <span class="n">builder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StreamsBuilder</span><span class="o">();</span>
     <span class="c1">// pattern to extract word</span>
     <span class="kd">final</span> <span class="n">Pattern</span> <span class="n">pattern</span> <span class="o">=</span> <span class="n">Pattern</span><span class="o">.</span><span class="na">compile</span><span class="o">(</span><span class="s">&quot;\\W+&quot;</span><span class="o">);</span>
@@ -1088,20 +1168,21 @@
 </pre></div>
 
 <ul>
-<li><a href="https://Kafka.apache.org/10/javadoc/org/apache/Kafka/streams/kstream/KStream.html">KStream</a> represents KeyValue records coming as event stream from the topic.</li>
-<li><code>flatMapValues()</code> transforms the value of each record in "this" stream into zero or more values with the same key in a new KStream (in memory). So here the text line is split into words. The parameter is a <a href="https://Kafka.apache.org/10/javadoc/org/apache/Kafka/streams/kstream/ValueMapper.html">ValueMapper</a> which applies transformation on values but keeps the key.</li>
+<li><a href="https://Kafka.apache.org/24/javadoc/org/apache/Kafka/streams/kstream/KStream.html">KStream</a> represents KeyValue records coming as event stream from the topic.</li>
+<li><code>flatMapValues()</code> transforms the value of each record in "this" stream into zero or more values with the same key in a new KStream (in memory). So here the text line is split into words. The parameter is a <a href="https://Kafka.apache.org/24/javadoc/org/apache/Kafka/streams/kstream/ValueMapper.html">ValueMapper</a> which applies transformation on values but keeps the key. Another important transformation is the <a href="https://kafka.apache.org/24/javadoc/org/apache/kafka/streams/kstream/KeyValueMapper.html">KeyValueMapper</a>.</li>
 <li><code>groupBy()</code> Group the records of this KStream on a new key that is selected using the provided KeyValueMapper. So here it creates new KStream with the extracted word as key.</li>
 <li><code>count()</code> counts the number of records in this stream by the grouped key. <code>Materialized</code> is an class to define a "store" to persist state and data. So here the state store is "counts-store". As store is a in-memory table, but it could also be persisted in external database. Could be the Facebook's <a href="https://rocksdb.org/">RocksDB key value persistence</a> or a log-compacted topic in Kafka.</li>
 <li>Produced defines how to provide the optional parameter types when producing to new topics.</li>
 <li>KTable is an abstraction of a changelog stream from a primary-keyed table.</li>
 </ul>
+<p>Important: map, flatMapValues and mapValues ... functions don’t modify the object or value presented as a parameter.</p>
 <p>See <a href="https://docs.confluent.io/current/streams/architecture.html">this article from Confluent</a> for deeper kafka stream architecture presentation.</p>
-<h3 id="example-to-run-the-word-count-application">Example to run the Word Count application:</h3>
+<h3 id="example-to-run-the-word-count-application">Example to run the Word Count application</h3>
 <ol>
 <li>
 <p>Be sure to create the needed different topics once the Kafka broker is started (test-topic, streams-wordcount-output):</p>
-<div class="codehilite"><pre><span></span>docker exec -ti Kafka /bin/bash
-cd /scripts
+<div class="codehilite"><pre><span></span>docker <span class="nb">exec</span> -ti Kafka /bin/bash
+<span class="nb">cd</span> /scripts
 ./createtopics.sh
 </pre></div>
 
@@ -1124,15 +1205,48 @@ root&gt; /opt/Kafka_2.11-0.10.1.0/bin/Kafka-console-consumer.sh --bootstrap-serv
 </li>
 <li>
 <p>Start the stream client to count word in the entered lines</p>
-<div class="codehilite"><pre><span></span>mvn exec:java -Dexec.mainClass=ibm.cte.Kafka.play.WordCount
+<div class="codehilite"><pre><span></span>mvn exec:java -Dexec.mainClass<span class="o">=</span>ibm.cte.Kafka.play.WordCount
 </pre></div>
 
 </li>
 </ol>
 <p>Outputs of the WordCount application is actually a continuous stream of updates, where each output record is an updated count of a single word. A KTable is counting the occurrence of word, and a KStream send the output message with updated count.</p>
+<h2 id="some-other-examples">Some other examples</h2>
+<ul>
+<li>Map values:</li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="n">KStream</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">simpleFirstStream</span> <span class="o">=</span>
+ <span class="n">builder</span><span class="o">.</span><span class="na">stream</span><span class="o">(</span><span class="s">&quot;src-topic&quot;</span><span class="o">,</span> <span class="n">Consumed</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">Serdes</span><span class="o">.</span><span class="na">String</span><span class="o">(),</span> <span class="n">Serdes</span><span class="o">.</span><span class="na">String</span><span class="o">()));</span>
+          <span class="o">.</span><span class="na">mapValues</span><span class="o">(</span><span class="n">String</span><span class="o">::</span><span class="n">toUpperCase</span><span class="o">);</span>
+          <span class="o">.</span><span class="na">to</span><span class="o">(</span><span class="s">&quot;out-topic&quot;</span><span class="o">,</span> <span class="n">Produced</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">Serdes</span><span class="o">.</span><span class="na">String</span><span class="o">(),</span> <span class="n">Serdes</span><span class="o">.</span><span class="na">String</span><span class="o">()));</span>
+</pre></div>
+
+<ul>
+<li>Extract values from input to create other object: (Example from KStreams in Action book chpater 3)</li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="n">KStream</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">PurchasePattern</span><span class="o">&gt;</span> <span class="n">patternKStream</span> <span class="o">=</span>
+     <span class="n">purchaseKStream</span><span class="o">.</span><span class="na">mapValues</span><span class="o">(</span><span class="n">purchase</span> <span class="o">-&gt;</span> <span class="n">PurchasePattern</span><span class="o">.</span><span class="na">builder</span><span class="o">(</span><span class="n">purchase</span><span class="o">).</span><span class="na">build</span><span class="o">());</span>
+
+<span class="n">patternKStream</span><span class="o">.</span><span class="na">to</span><span class="o">(</span><span class="s">&quot;patterns&quot;</span><span class="o">,</span> <span class="n">Produced</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">Serdes</span><span class="o">.</span><span class="na">String</span><span class="o">(),</span><span class="k">new</span> <span class="n">JSONSerde</span><span class="o">&lt;</span><span class="n">Purchase</span><span class="o">&gt;())));</span>
+</pre></div>
+
+<ul>
+<li>Map key by using KeyValueMapper: For example to filter low level transaction and generate a stream with a key = to a time:</li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="n">KeyValueMapper</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Purchase</span><span class="o">,</span> <span class="n">Long</span><span class="o">&gt;</span> <span class="n">purchaseDateAsKey</span> <span class="o">=</span> <span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">purchase</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">purchase</span><span class="o">.</span><span class="na">getPurchaseDate</span><span class="o">().</span><span class="na">getTime</span><span class="o">();</span>
+
+<span class="n">KStream</span><span class="o">&lt;</span><span class="n">Long</span><span class="o">,</span> <span class="n">Purchase</span><span class="o">&gt;</span> <span class="n">filteredKStream</span> <span class="o">=</span> <span class="n">purchaseKStream</span><span class="o">.</span><span class="na">filter</span><span class="o">((</span><span class="n">key</span><span class="o">,</span> <span class="n">purchase</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">purchase</span><span class="o">.</span><span class="na">getPrice</span><span class="o">()</span> <span class="o">&gt;</span> <span class="mf">5.00</span><span class="o">).</span><span class="na">selectKey</span><span class="o">(</span><span class="n">purchaseDateAsKey</span><span class="o">);</span>
+</pre></div>
+
 <h2 id="some-design-considerations">Some design considerations</h2>
 <ul>
+<li>Partitions are assigned to a StreamTask, and each StreamTask has its own state store. So important to be sure to have key and kafka will assign records with same key to same partition so lookup inside state store will work.</li>
 <li>Avoid external database lookup as part of the stream: As kafka can handle million of records per second, so a lookup to an external database to do a join between a primary key that is in the event and a table in the database to do a data enrichment, for example is a bad practice. The approach will be to use Ktable, with state store and perform a join in memory.</li>
+</ul>
+<h3 id="join-streams-examples">Join streams Examples</h3>
+<p>We recommend reading <a href="https://www.confluent.io/blog/crossing-streams-joins-apache-kafka/">this deep dive article</a> on joining streams and stream with table. The important points from this article:</p>
+<ul>
+<li>kstream - kstream joins are windowed to control the size of data to keep in memory to search for the matching records.</li>
 </ul>
 <h2 id="faust-a-python-library-to-do-kafka-streaming">Faust: a python library to do kafka streaming</h2>
 <p><a href="https://faust.readthedocs.io/en/latest/index.html">Faust</a> is a python library to support stream processing. It does not have its own DSL as Kafka streams in Java has, but just python functions.</p>
