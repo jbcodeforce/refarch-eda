@@ -1158,13 +1158,15 @@
 <li><strong>At most semantic</strong>: means the producer will not do retry in case of no acknowldege received. It may create log and compensation, but the message may be lost.</li>
 <li><strong>Exactly once</strong> means even if the producer sends the message twice the system will send only one message to the consumer. Once the consumer commits the read offset, it will not receive the message again, even if it restarts. Consumer offset needs to be in sync with produced event.</li>
 </ul>
+<p>At the best case scenario, with a replica factor set to 3, a broker responding on time to the producer, and with a consumer committing its offset and reading from the last committed offset it is possible to get only one message end to end.</p>
+<p><img alt="" src="../images/exactly-one-0.png" /></p>
+<p>Sometime the brokers will not send acknowledge in expected time, and the producer may decide to send the records again, generating duplicate...</p>
+<p><img alt="" src="../images/exactly-one-1.png" /></p>
 <p>To avoid duplicate message at the broker level, when acknowledge is set to ALL, the producer can also set idempotence flag: ENABLE_IDEMPOTENCE_CONFIG = true. With the idempotence property, the record sent, has a sequence number and a producer id, so that the broker keeps the last sequence number per producer and per partition. If a message is received with a lower sequence number, it means a producer is doing some retries on record already processed, so the broker will drop it, to avoid having duplicate records per partition.</p>
-<p><img alt="Exactly once" src="../images/exactly-one-1.png" /></p>
-<p>In the diagram below, the 3nd message in the batch did not get an acknowledge, so the producer resends the batch, and the brokers reject duplicates and accept the 3nd message.</p>
-<p><img alt="Exactly once - retries" src="../images/exactly-one-2.png" /></p>
+<p><img alt="Exactly once" src="../images/exactly-one-2.png" /></p>
 <p>The sequence number is persisted in a log so even in case of broker leader failure, the new leader will have a good view of the states of the system.</p>
 <div class="admonition note">
-<p class="admonition-title">Note<p>The replication mechanism guarantees that when a message is written to the leader replica, it will be replicated to all available replicas.
+<p class="admonition-title">Note<p>The replication mechanism guarantees that, when a message is written to the leader replica, it will be replicated to all available replicas.
 As soon as you want to get acknowledge of all replicates, it is obvious to set idempotence to true. It does not impact performance.</p>
 </p>
 </div>
@@ -1174,7 +1176,7 @@ As soon as you want to get acknowledge of all replicates, it is obvious to set i
 <span class="n">kafkaProducer</span><span class="o">.</span><span class="na">initTransactions</span><span class="o">()</span>
 </pre></div>
 
-<p><code>initTransactions()</code> registers the producer with the broker as one that can use transaction, identifying it by its transactional.id and a sequence number, or epoch.</p>
+<p><code>initTransactions()</code> registers the producer with the broker as one that can use transaction, identifying it by its <code>transactional.id</code> and a sequence number, or epoch.</p>
 <p>In case of multiple partitions, the broker will store a list of all updated partitions for a given transaction.</p>
 <p>See the <a href="https://github.com/ibm-cloud-architecture/refarch-kc-order-ms/blob/53bbb8cdeac413883ca2ccf521eb0797a43f45a3/order-command-ms/src/main/java/ibm/gse/orderms/infrastructure/kafka/OrderCommandProducer.java#L46">code in order command</a> microservice.</p>
 <p>The consumer is also interested to configure the reading of the transactional messages by defining the isolation level. Consumer waits to read transactional messages until the associated transaction has been committed. Here is an example of consumer code and configuration</p>
